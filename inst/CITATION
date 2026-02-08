@@ -1,0 +1,13 @@
+citHeader("To cite the scaledescr package in publications:")
+
+bibentry(
+  bibtype = "Manual",
+  title   = "scaledescr: Descriptive and Reliability Tables for Psychometric Scales",
+  author  = person(
+    given = "Darshan",
+    family = "Dharaiya",
+    comment = c(ORCID = "0009-0009-9351-8602")
+  ),
+  year    = "2026",
+  note    = "R package version 0.1.3",
+  )

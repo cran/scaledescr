@@ -1,0 +1,16 @@
+319d12c706ccec3d9ee10068f8e9f8fb *DESCRIPTION
+7fe420ec2886906dcbe789bd98e67ff3 *LICENSE
+5435573fc63da2b147dfb6fd54816ddb *NAMESPACE
+9dc3066009a6d47753ec480d09af8d2d *R/make_alpha_table.R
+c92a5eda9b819242f80712018301fcbf *R/make_dataframe_to_output.R
+e785c7bdc94d73ad6fef683b16f6fad0 *R/make_demographic_table.R
+54f29580ac3910efb2abc6b3d46bd3d5 *R/make_paired_t_test_table.R
+8a412a6243dd4ea0d5fa4ab46843f877 *R/make_scale_description_table.R
+e29b6ad433db72e858e3c0d78674ff93 *R/scaledescr.R
+d376908f48b4598d724c7bc6d93169b6 *inst/CITATION
+d6fe6c2987bcb7fcdd283978a112da93 *man/make_alpha_table.Rd
+7de7a607fa3b9359e0517ed5da04231e *man/make_dataframe_to_output.Rd
+41fb89d8233acf7b09fe5b239606c17c *man/make_demographic_table.Rd
+acc65bd381e9e189e27dfa3fcdab80c5 *man/make_paired_t_test_table.Rd
+25aaf4b717d0069ee8d3759e0fbd79a2 *man/make_scale_description_table.Rd
+57ca2e95e288acfdd97c2c2730e3c3bf *man/scaledescr.Rd
