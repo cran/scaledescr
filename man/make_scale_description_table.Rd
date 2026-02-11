@@ -4,32 +4,35 @@
 \alias{make_scale_description_table}
 \title{Create a Descriptive Statistics Table Row}
 \usage{
-make_scale_description_table(descr_object, scale_name)
+make_scale_description_table(x, scale_name, type = NULL)
 }
 \arguments{
-\item{descr_object}{An object returned by \code{psych::describe()}.
-Must contain: \code{n}, \code{mean}, \code{sd}, \code{median},
-\code{min}, \code{max}, \code{skew}, \code{kurtosis}.}
+\item{x}{A numeric vector representing total scores of a scale.}
 
 \item{scale_name}{A single character string specifying the name of the scale.}
+
+\item{type}{Optional character string. If NULL (default), descriptive
+statistics are computed using \code{psych::describe()}. If set to
+\code{"summary"}, statistics are computed using \code{base::summary()}.}
 }
 \value{
 A single-row data frame with formatted descriptive statistics.
 }
 \description{
-Formats a descriptive statistics object into a single-row data frame
+Computes and formats descriptive statistics for a scale total score into a single-row data frame suitable for reporting.
 }
 \details{
 This function is intended for reporting descriptive statistics of
-total scores that has been calculated using psych::describe().
+total scale scores, for which descriptive statistics are computed internally
+using \code{psych::describe()} or \code{base::summary()}.
 }
 \examples{
 {
-  # Create 10 random PHQ-9 scores
   phq9_data <- as.data.frame(matrix(sample(0:3, 10 * 9, replace = TRUE), 10, 9))
   colnames(phq9_data) <- paste0("Q", 1:9)
   phq9_data$total <- rowSums(phq9_data)
-  descr_total <- psych::describe(phq9_data$total)
-  make_scale_description_table(descr_total, scale_name = "PHQ-9")
+
+  make_scale_description_table(phq9_data$total, scale_name = "PHQ-9")
 }
+
 }

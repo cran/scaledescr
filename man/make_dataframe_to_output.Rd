@@ -4,33 +4,61 @@
 \alias{make_dataframe_to_output}
 \title{Export a data frame to CSV, Word, or Excel}
 \usage{
-make_dataframe_to_output(x, filename = NULL, format = "csv")
+make_dataframe_to_output(x, filename = NULL, format = "csv", path = NULL)
 }
 \arguments{
-\item{x}{A data frame to export}
+\item{x}{A data frame to export.}
 
-\item{filename}{Optional. The file name (with or without path, without extension).
-If not provided, the data frame name is used.}
+\item{filename}{Optional character string specifying the base file name
+(without path and without extension). If not provided, the name of the
+input object is used.}
 
-\item{format}{Character. One of \code{"csv"}, \code{"docx"}, or \code{"excel"}. Default is \code{"csv"}.}
+\item{format}{Character string specifying the output format. One of
+\code{"csv"}, \code{"docx"}, or \code{"excel"}. Default is \code{"csv"}.}
+
+\item{path}{Optional character string specifying the directory where the
+file should be saved. If \code{NULL} (default), the file is written to a
+temporary directory. Use \code{path = "getwd"} to save the file in the current
+working directory, or provide a full directory path.}
 }
 \value{
-Invisible path to the generated file
+Invisibly returns the full file path to the generated output file.
 }
 \description{
-This function writes a data frame to a user-specified file path in a user-specified format (CSV, Word, or Excel).
+This function exports a data frame as a structured table to a file in CSV,
+Word (\code{.docx}), or Excel (\code{.xlsx}) format.
+}
+\details{
+If no output path is specified, the file is written to a temporary directory
+using \code{tempdir()}. For reproducible workflows, users are encouraged to
+explicitly specify an output location, either the current working directory
+or a full file path.
 \itemize{
-\item CSV uses \code{write.csv()}
-\item Word (\code{docx}) uses \code{officer} and makes column names safe
-\item Excel (\code{xlsx}) uses \code{openxlsx}
+\item CSV files are written using \code{utils::write.csv()}
+\item Word (\code{docx}) files are created using the \code{officer} package
+\item Excel (\code{xlsx}) files are created using the \code{openxlsx} package
 }
 }
 \examples{
-\donttest{
+\dontrun{
 df <- data.frame(x = 1:3, y = c("A", "B", "C"))
 
-# Write to a temporary directory (CRAN-safe)
-tmp_file <- file.path(tempdir(), "demo_csv")
-make_dataframe_to_output(df, filename = tmp_file, format = "csv")
+# 1. Default behaviour: write to a temporary directory (CRAN-safe)
+make_dataframe_to_output(df, format = "csv")
+
+# 2. Write to the current working directory (recommended for projects)
+make_dataframe_to_output(
+  df,
+  format = "csv",
+  path = "getwd"
+)
+
+# 3. Write to a user-specified directory
+make_dataframe_to_output(
+  df,
+  filename = "demo_table",
+  format = "excel",
+  path = tempdir()
+)
 }
 }

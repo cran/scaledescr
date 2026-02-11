@@ -1,63 +1,78 @@
 #' Create a Descriptive Statistics Table Row
 #'
-#' Formats a descriptive statistics object into a single-row data frame
+#' Computes and formats descriptive statistics for a scale total score into a single-row data frame suitable for reporting.
 #'
 #' This function is intended for reporting descriptive statistics of
-#' total scores that has been calculated using psych::describe().
+#' total scale scores, for which descriptive statistics are computed internally
+#' using \code{psych::describe()} or \code{base::summary()}.
 #'
-#' @param descr_object An object returned by \code{psych::describe()}.
-#'   Must contain: \code{n}, \code{mean}, \code{sd}, \code{median},
-#'   \code{min}, \code{max}, \code{skew}, \code{kurtosis}.
+#' @param x A numeric vector representing total scores of a scale.
+#' @param type Optional character string. If NULL (default), descriptive
+#'   statistics are computed using \code{psych::describe()}. If set to
+#'   \code{"summary"}, statistics are computed using \code{base::summary()}.
+
 #' @param scale_name A single character string specifying the name of the scale.
 #'
 #' @return A single-row data frame with formatted descriptive statistics.
+#'
 #' @examples
 #' {
-#'   # Create 10 random PHQ-9 scores
 #'   phq9_data <- as.data.frame(matrix(sample(0:3, 10 * 9, replace = TRUE), 10, 9))
 #'   colnames(phq9_data) <- paste0("Q", 1:9)
 #'   phq9_data$total <- rowSums(phq9_data)
-#'   descr_total <- psych::describe(phq9_data$total)
-#'   make_scale_description_table(descr_total, scale_name = "PHQ-9")
-#' }
-
-#' @export
 #'
-make_scale_description_table <- function(descr_object, scale_name) {
+#'   make_scale_description_table(phq9_data$total, scale_name = "PHQ-9")
+#' }
+#'
+#' @export
+make_scale_description_table <- function(x, scale_name, type = NULL) {
   ## ---- Gentle checks ----
-
-  if (!is.list(descr_object)) {
-    stop("descr_object must be an object returned by psych::describe().")
+  if (!is.numeric(x)) {
+    stop("x must be a numeric vector (e.g., total scale scores).", call. = FALSE)
   }
 
   if (!is.character(scale_name) || length(scale_name) != 1) {
-    stop("scale_name must be a single character string (e.g., 'PHQ 9').")
+    stop("scale_name must be a single character string.", call. = FALSE)
   }
 
-  required_fields <- c(
-    "n", "mean", "sd", "median", "min", "max", "skew", "kurtosis"
-  )
+  ## ---- psych::describe() branch ----
+  if (is.null(type)) {
+    descr <- psych::describe(x)
 
-  missing_fields <- setdiff(required_fields, names(descr_object))
-
-  if (length(missing_fields) > 0) {
-    stop(
-      "descr_object is missing required fields: ",
-      paste(missing_fields, collapse = ", "),
-      "\nDid you pass the output of psych::describe()?"
+    out <- data.frame(
+      Scale = scale_name,
+      N = descr$n,
+      Mean = round(descr$mean, 2),
+      SD = round(descr$sd, 2),
+      Median = round(descr$median, 2),
+      Range = paste0(
+        round(descr$min, 2), "-",
+        round(descr$max, 2)
+      ),
+      Skewness = round(descr$skew, 2),
+      Kurtosis = round(descr$kurtosis, 2)
     )
+
+    ## ---- base::summary() branch ----
+  } else if (type == "summary") {
+    s <- summary(x)
+
+    out <- data.frame(
+      Scale = scale_name,
+      N = sum(!is.na(x)),
+      `1st Qu.` = round(s[["1st Qu."]], 2),
+      Median = round(s[["Median"]], 2),
+      Mean = round(s[["Mean"]], 2),
+      `3rd Qu.` = round(s[["3rd Qu."]], 2),
+      Range = paste0(
+        round(s[["Min."]], 2), "-",
+        round(s[["Max."]], 2)
+      ),
+      stringsAsFactors = FALSE
+    )
+  } else {
+    stop("type must be NULL or 'summary'.", call. = FALSE)
   }
 
-  ## ---- Create table Row----
-
-  data.frame(
-    Scale    = scale_name,
-    N        = descr_object$n,
-    Mean     = round(descr_object$mean, 2),
-    SD       = round(descr_object$sd, 2),
-    Median   = round(descr_object$median, 2),
-    Range    = paste0(round(descr_object$min, 2), "-", (round(descr_object$max, 2))),
-    Skewness = round(descr_object$skew, 2),
-    Kurtosis = round(descr_object$kurtosis, 2)
-  )
+  return(out)
 }

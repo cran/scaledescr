@@ -1,4 +1,4 @@
-#' Wrap a pre-computed psych::alpha object into a single-row table
+#' Wrap a pre computed psych::alpha object into a single row table
 #'
 #' @param alpha_res A psych::alpha object (already computed)
 #' @param scale_name Name of the scale (default: "Scale")

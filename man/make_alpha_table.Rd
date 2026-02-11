@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_alpha_table.R
 \name{make_alpha_table}
 \alias{make_alpha_table}
-\title{Wrap a pre-computed psych::alpha object into a single-row table}
+\title{Wrap a pre computed psych::alpha object into a single row table}
 \usage{
 make_alpha_table(alpha_res, scale_name = "Scale")
 }
@@ -15,7 +15,7 @@ make_alpha_table(alpha_res, scale_name = "Scale")
 A data frame with columns: Scale, 95\% CI lower, Alpha, 95\% CI upper
 }
 \description{
-Wrap a pre-computed psych::alpha object into a single-row table
+Wrap a pre computed psych::alpha object into a single row table
 }
 \examples{
 # Create a minimal "psych::alpha" like object manually
