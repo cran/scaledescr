@@ -16,15 +16,15 @@ make_independent_t_test_table(data, outcome, group)
 \value{
 A single-row data frame with the following columns:
 \itemize{
-\item \code{test}: Name of the statistical test
-\item \code{group1}, \code{group2}: Group labels
-\item \code{mean_diff}: Mean difference between groups (group1 - group2)
-\item \code{t_value}: t statistic
-\item \code{df}: Degrees of freedom
-\item \code{p_value}: p-value
-\item \code{n_group1}, \code{n_group2}: Sample sizes per group
-\item \code{cohens_d}: Cohen's d effect size
-\item \code{interpretation}: Qualitative interpretation of effect size
+  \item \code{test}: Name of the statistical test
+  \item \code{group1}, \code{group2}: Group labels
+  \item \code{mean_diff}: Mean difference between groups (group1 - group2)
+  \item \code{t_value}: t statistic
+  \item \code{df}: Degrees of freedom
+  \item \code{p_value}: p-value
+  \item \code{n_group1}, \code{n_group2}: Sample sizes per group
+  \item \code{cohens_d}: Cohen's d effect size
+  \item \code{interpretation}: Qualitative interpretation of effect size
 }
 }
 \description{
@@ -37,6 +37,7 @@ sample sizes, mean difference, test statistics, p-value, and effect size
 \details{
 The function is intended for streamlined reporting and does not introduce
 new statistical methods. All computations rely on \code{stats::t.test()}.
+
 
 Welch’s t-test is used by default, which does not assume equal variances.
 Cohen’s d is computed using the pooled standard deviation for comparability

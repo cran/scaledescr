@@ -16,28 +16,28 @@ make_paired_t_test_table(
 \arguments{
 \item{data}{A data frame containing the two numeric variables.}
 
-\item{var1}{Character string. Name of the first variable (observation 1) in \code{data}.}
+\item{var1}{Character string. Name of the first variable (observation 1) in `data`.}
 
-\item{var2}{Character string. Name of the second variable (observation 2) in \code{data}.}
+\item{var2}{Character string. Name of the second variable (observation 2) in `data`.}
 
-\item{var_name}{Optional character string. Custom name for the variable to display in the table. Default is \verb{var1 vs var2}.}
+\item{var_name}{Optional character string. Custom name for the variable to display in the table. Default is `var1 vs var2`.}
 
-\item{alternative}{Character string specifying the alternative hypothesis. One of \code{"two.sided"}, \code{"less"}, or \code{"greater"}. Default is \code{"two.sided"}.}
+\item{alternative}{Character string specifying the alternative hypothesis. One of `"two.sided"`, `"less"`, or `"greater"`. Default is `"two.sided"`.}
 
 \item{conf.level}{Confidence level for the interval. Default is 0.95.}
 }
 \value{
 A one-row data frame with columns:
 \itemize{
-\item \code{Variable} - variable name
-\item \code{Mean_obs1} - mean of observation 1
-\item \code{Mean_obs2} - mean of observation 2
-\item \code{Mean_diff} - mean difference (obs1 - obs2)
-\item \code{t_value} - t statistic
-\item \code{df} - degrees of freedom
-\item \code{p_value} - p-value
-\item \code{CI_lower} - lower bound of confidence interval
-\item \code{CI_upper} - upper bound of confidence interval
+  \item `Variable` - variable name
+  \item `Mean_obs1` - mean of observation 1
+  \item `Mean_obs2` - mean of observation 2
+  \item `Mean_diff` - mean difference (obs1 - obs2)
+  \item `t_value` - t statistic
+  \item `df` - degrees of freedom
+  \item `p_value` - p-value
+  \item `CI_lower` - lower bound of confidence interval
+  \item `CI_upper` - upper bound of confidence interval
 }
 }
 \description{

@@ -12,7 +12,7 @@ make_alpha_table(alpha_res, scale_name = "Scale")
 \item{scale_name}{Name of the scale (default: "Scale")}
 }
 \value{
-A data frame with columns: Scale, 95\% CI lower, Alpha, 95\% CI upper
+A data frame with columns: Scale, 95% CI lower, Alpha, 95% CI upper
 }
 \description{
 Wrap a pre computed psych::alpha object into a single row table

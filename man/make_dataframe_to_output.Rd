@@ -2,63 +2,114 @@
 % Please edit documentation in R/make_dataframe_to_output.R
 \name{make_dataframe_to_output}
 \alias{make_dataframe_to_output}
-\title{Export a data frame to CSV, Word, or Excel}
+\title{Export a data frame to CSV, Word (.docx), or Excel (.xlsx) format.}
 \usage{
-make_dataframe_to_output(x, filename = NULL, format = "csv", path = NULL)
+make_dataframe_to_output(data, filename = NULL, format = "csv", path = NULL)
 }
 \arguments{
-\item{x}{A data frame to export.}
+\item{data}{A data frame to export.}
 
-\item{filename}{Optional character string specifying the base file name
-(without path and without extension). If not provided, the name of the
-input object is used.}
+\item{filename}{Optional base file name (without extension). Defaults to object name.
+(without path and without extension).
+If not provided, the name of the input object is used.}
 
 \item{format}{Character string specifying the output format. One of
-\code{"csv"}, \code{"docx"}, or \code{"excel"}. Default is \code{"csv"}.}
+`"csv"`, `"word"`, or `"excel"`. Default is `"csv"`.}
 
 \item{path}{Optional character string specifying the directory where the
-file should be saved. If \code{NULL} (default), the file is written to a
-temporary directory. Use \code{path = "getwd"} to save the file in the current
+file should be saved. If `NULL` (default), the file is written to a
+temporary directory. Use `path = getwd()` to save the file in the current
 working directory, or provide a full directory path.}
 }
 \value{
 Invisibly returns the full file path to the generated output file.
 }
 \description{
-This function exports a data frame as a structured table to a file in CSV,
-Word (\code{.docx}), or Excel (\code{.xlsx}) format.
+If no output path is specified, the file is written to a temporary directory
+using `tempdir()`.
+For reproducible workflows, users are encouraged to explicitly specify an output location, either the current working directory
+or a full file path.
 }
 \details{
-If no output path is specified, the file is written to a temporary directory
-using \code{tempdir()}. For reproducible workflows, users are encouraged to
-explicitly specify an output location, either the current working directory
-or a full file path.
-\itemize{
-\item CSV files are written using \code{utils::write.csv()}
-\item Word (\code{docx}) files are created using the \code{officer} package
-\item Excel (\code{xlsx}) files are created using the \code{openxlsx} package
-}
+- CSV files are written using `utils::write.csv()`
+- Word files (`docx`) are created using the `officer` package
+- Excel (`xlsx`) files are created using the `openxlsx` package
 }
 \examples{
 \dontrun{
-df <- data.frame(x = 1:3, y = c("A", "B", "C"))
 
-# 1. Default behaviour: write to a temporary directory (CRAN-safe)
-make_dataframe_to_output(df, format = "csv")
+# Example dataset available in base R
+data_df <- head(mtcars)
 
-# 2. Write to the current working directory (recommended for projects)
+#--------------------------------------------------
+# 1. Simplest use: export to CSV in temp directory
+#--------------------------------------------------
+make_dataframe_to_output(data_df)
+
+#--------------------------------------------------
+# 2. Specify filename
+#--------------------------------------------------
 make_dataframe_to_output(
-  df,
+  data = data_df,
+  filename = "mtcars_sample"
+)
+
+#--------------------------------------------------
+# 3. Export as Word document
+#--------------------------------------------------
+make_dataframe_to_output(
+  data = data_df,
+  filename = "mtcars_word_table",
+  format = "word"
+)
+
+#--------------------------------------------------
+# 4. Export as Excel file
+#--------------------------------------------------
+make_dataframe_to_output(
+  data = data_df,
+  filename = "mtcars_excel_table",
+  format = "excel"
+)
+
+#--------------------------------------------------
+# 5. Save to current working directory
+#--------------------------------------------------
+make_dataframe_to_output(
+  data = data_df,
+  filename = "mtcars_current_folder",
   format = "csv",
-  path = "getwd"
+  path = "getwd()"
 )
 
-# 3. Write to a user-specified directory
+#--------------------------------------------------
+# 6. Save Excel file to current working directory
+#--------------------------------------------------
 make_dataframe_to_output(
-  df,
-  filename = "demo_table",
+  data = data_df,
+  filename = "mtcars_excel_current",
   format = "excel",
-  path = tempdir()
+  path = "getwd()"
 )
+
+#--------------------------------------------------
+# 7. Export another base dataset (iris)
+#--------------------------------------------------
+make_dataframe_to_output(
+  data = head(iris),
+  filename = "iris_sample",
+  format = "word"
+)
+
+#--------------------------------------------------
+# 8. Using a custom folder path
+#--------------------------------------------------
+make_dataframe_to_output(
+  data = head(airquality),
+  filename = "airquality_data",
+  format = "excel",
+  path = "D:/output_folder"
+)
+
 }
 }

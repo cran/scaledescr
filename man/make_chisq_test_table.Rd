@@ -20,14 +20,14 @@ One of \code{"goodness-of-fit"}, \code{"independence"}, or
 \value{
 A single-row data frame with the following columns:
 \itemize{
-\item \code{test}: Type of chi-square test
-\item \code{chi_square}: Chi-square statistic
-\item \code{df}: Degrees of freedom
-\item \code{p_value}: p-value
-\item \code{N}: Total sample size
-\item \code{effect_size}: Effect size (Cohen’s w or Cramér’s V)
-\item \code{effect_type}: Type of effect size reported
-\item \code{effect_interpretation}: Qualitative interpretation of effect size
+  \item \code{test}: Type of chi-square test
+  \item \code{chi_square}: Chi-square statistic
+  \item \code{df}: Degrees of freedom
+  \item \code{p_value}: p-value
+  \item \code{N}: Total sample size
+  \item \code{effect_size}: Effect size (Cohen’s w or Cramér’s V)
+  \item \code{effect_type}: Type of effect size reported
+  \item \code{effect_interpretation}: Qualitative interpretation of effect size
 }
 }
 \description{
@@ -40,6 +40,7 @@ effect size with a qualitative interpretation.
 The function does not perform the chi-square test itself and does not
 introduce new statistical methods. All test statistics are extracted
 directly from the supplied \code{chisq.test()} object.
+
 
 For goodness-of-fit tests, Cohen’s w is reported. For tests of independence
 and homogeneity, Cramér’s V is reported. Effect size interpretations follow
