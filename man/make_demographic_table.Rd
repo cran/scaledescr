@@ -20,11 +20,10 @@ A gtsummary table
 Create a demographics summary table
 }
 \examples{
-# Minimal example data
 df <- data.frame(
-  age = c(25, 30, 35),
-  sex = c("M", "F", "M"),
-  education = c("HS", "BA", "MA")
+  age = c("25", "30 years", "35", " 40 ", "22.5", "28+", NA, ""),
+  sex = c("M", "F", "m", "f", " M ", "F", "m", NA),
+  education = c("HS", "BA", "MA", "ma", "Hs", "Ma", "Ba Bed", "Msc bed ")
 )
 
 # Generate a demographic summary table (assign to object to avoid printing)

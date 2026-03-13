@@ -2,7 +2,7 @@ Package: scaledescr
 Type: Package
 Title: Descriptive, Reliability, and Inferential Tables for
         Psychometric Scales and Demographic Data
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: 
     person(
       given  = "Darshankumar",
@@ -16,14 +16,14 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 RoxygenNote: 7.3.3
 Imports: dplyr, gtsummary, purrr, rlang, stats, officer, openxlsx,
-        utils, psych
+        utils, psych, stringr, flextable
 Suggests: testthat (>= 3.0.0)
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2026-03-06 14:31:08 UTC; HP
+Packaged: 2026-03-13 16:28:53 UTC; HP
 Author: Darshankumar Dharaiya [aut, cre] (ORCID:
     <https://orcid.org/0009-0009-9351-8602>)
 Maintainer: Darshankumar Dharaiya <dharaiya.darshan@gmail.com>
 Depends: R (>= 4.1.0)
 Repository: CRAN
-Date/Publication: 2026-03-06 14:50:02 UTC
+Date/Publication: 2026-03-13 17:00:02 UTC
