@@ -19,6 +19,11 @@
 
 #' @export
 make_alpha_table <- function(alpha_res, scale_name = "Scale") {
+
+  warning("The current `make_alpha_table()` may return inconsistent results for
+          some psych::alpha objects due to variation in alpha_res object structure.
+          Future versions will simplify output to Scale, N, and Alpha.")
+
   # Extract raw alpha and round to 2 decimals
   raw_alpha <- round(alpha_res$total$raw_alpha, 2)
 

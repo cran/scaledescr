@@ -1,78 +1,76 @@
-#' Create a Descriptive Statistics Table Row
+#' Create Descriptive Table for Multiple Scale Columns
 #'
-#' Computes and formats descriptive statistics for a scale total score into a single-row data frame suitable for reporting.
+#' Computes descriptive statistics for one or more scale total columns.
+#' Accepts either a numeric vector (single column) or a data frame with column names.
 #'
-#' This function is intended for reporting descriptive statistics of
-#' total scale scores, for which descriptive statistics are computed internally
-#' using \code{psych::describe()} or \code{base::summary()}.
+#' @param x Optional numeric vector of total scores (single column, old-style).
+#' @param data Optional data frame containing one or more scale columns.
+#' @param columns Optional character vector of column names in `data` (new-style).
+#' @param scale_names Optional character vector of names for each scale. Defaults to column names.
+#' @param type "summary" for base::summary(), NULL (default) uses psych::describe().
 #'
-#' @param x A numeric vector representing total scores of a scale.
-#' @param type Optional character string. If NULL (default), descriptive
-#'   statistics are computed using \code{psych::describe()}. If set to
-#'   \code{"summary"}, statistics are computed using \code{base::summary()}.
-
-#' @param scale_name A single character string specifying the name of the scale.
-#'
-#' @return A single-row data frame with formatted descriptive statistics.
-#'
-#' @examples
-#' {
-#'   phq9_data <- as.data.frame(matrix(sample(0:3, 10 * 9, replace = TRUE), 10, 9))
-#'   colnames(phq9_data) <- paste0("Q", 1:9)
-#'   phq9_data$total <- rowSums(phq9_data)
-#'
-#'   make_scale_description_table(phq9_data$total, scale_name = "PHQ-9")
-#' }
-#'
+#' @return A data frame with one row per column, containing descriptive statistics.
 #' @export
-make_scale_description_table <- function(x, scale_name, type = NULL) {
-  ## ---- Gentle checks ----
-  if (!is.numeric(x)) {
-    stop("x must be a numeric vector (e.g., total scale scores).", call. = FALSE)
-  }
+make_scale_description_table <- function(x = NULL, data = NULL, columns = NULL,
+                                         scale_names = NULL, type = NULL) {
 
-  if (!is.character(scale_name) || length(scale_name) != 1) {
-    stop("scale_name must be a single character string.", call. = FALSE)
-  }
-
-  ## ---- psych::describe() branch ----
-  if (is.null(type)) {
-    descr <- psych::describe(x)
-
-    out <- data.frame(
-      Scale = scale_name,
-      N = descr$n,
-      Mean = round(descr$mean, 2),
-      SD = round(descr$sd, 2),
-      Median = round(descr$median, 2),
-      Range = paste0(
-        round(descr$min, 2), "-",
-        round(descr$max, 2)
-      ),
-      Skewness = round(descr$skew, 2),
-      Kurtosis = round(descr$kurtosis, 2)
-    )
-
-    ## ---- base::summary() branch ----
-  } else if (type == "summary") {
-    s <- summary(x)
-
-    out <- data.frame(
-      Scale = scale_name,
-      N = sum(!is.na(x)),
-      `1st Qu.` = round(s[["1st Qu."]], 2),
-      Median = round(s[["Median"]], 2),
-      Mean = round(s[["Mean"]], 2),
-      `3rd Qu.` = round(s[["3rd Qu."]], 2),
-      Range = paste0(
-        round(s[["Min."]], 2), "-",
-        round(s[["Max."]], 2)
-      ),
-      stringsAsFactors = FALSE
-    )
+  # ---- Determine input ----
+  if (!is.null(data)) {
+    if (!is.data.frame(data)) stop("data must be a data.frame")
+    if (is.null(columns)) stop("columns must be provided when using data")
+    missing_cols <- setdiff(columns, names(data))
+    if (length(missing_cols) > 0) stop("Columns not found in data: ", paste(missing_cols, collapse = ", "))
+    x_list <- lapply(columns, function(col) data[[col]])
+  } else if (!is.null(x)) {
+    # single numeric vector
+    if (!is.numeric(x)) stop("x must be numeric")
+    x_list <- list(x)
+    if (is.null(scale_names)) scale_names <- "Scale1"
   } else {
-    stop("type must be NULL or 'summary'.", call. = FALSE)
+    stop("Either x or data must be provided")
   }
 
-  return(out)
+  # ---- Scale names ----
+  if (!is.null(data)) {
+    if (is.null(scale_names)) scale_names <- columns
+    if (length(scale_names) != length(columns)) stop("scale_names length must match columns length")
+  }
+
+  # ---- Compute statistics for each column ----
+  results <- lapply(seq_along(x_list), function(i) {
+    x_col <- x_list[[i]]
+    scale_name <- scale_names[i]
+
+    if (is.null(type)) {
+      descr <- psych::describe(x_col)
+      data.frame(
+        Scale = scale_name,
+        N = descr$n,
+        Mean = round(descr$mean, 2),
+        SD = round(descr$sd, 2),
+        Median = round(descr$median, 2),
+        Range = paste0(round(descr$min, 2), "-", round(descr$max, 2)),
+        Skewness = round(descr$skew, 2),
+        Kurtosis = round(descr$kurtosis, 2),
+        stringsAsFactors = FALSE
+      )
+    } else if (type == "summary") {
+      s <- summary(x_col)
+      data.frame(
+        Scale = scale_name,
+        N = sum(!is.na(x_col)),
+        `1st Qu.` = round(s[["1st Qu."]], 2),
+        Median = round(s[["Median"]], 2),
+        Mean = round(s[["Mean"]], 2),
+        `3rd Qu.` = round(s[["3rd Qu."]], 2),
+        Range = paste0(round(s[["Min."]], 2), "-", round(s[["Max."]], 2)),
+        stringsAsFactors = FALSE
+      )
+    } else {
+      stop("type must be NULL or 'summary'")
+    }
+  })
+
+  # ---- Combine into one table ----
+  do.call(rbind, results)
 }

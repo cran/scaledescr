@@ -1,7 +1,7 @@
 #' Create a one-row summary table for a chi-square test
 #'
 #' This function formats the result of a pre-computed \code{chisq.test()}
-#' into a single-row, report-ready data frame. It supports goodness-of-fit,
+#' into a single-row data frame. It supports goodness-of-fit,
 #' independence, and homogeneity chi-square tests and includes an appropriate
 #' effect size with a qualitative interpretation.
 #'
@@ -9,11 +9,12 @@
 #' introduce new statistical methods. All test statistics are extracted
 #' directly from the supplied \code{chisq.test()} object.
 #'
-#' @param chisq_object An object of class \code{"htest"} produced by
+#' @param chisq_object An object or list of objects of class \code{"htest"} produced by
 #'   \code{stats::chisq.test()}.
 #' @param test_type Character string specifying the type of chi-square test.
 #'   One of \code{"goodness-of-fit"}, \code{"independence"}, or
-#'   \code{"homogeneity"}.
+#'   \code{"homogeneity"}.  for multiple object, if separate test_type are not provided than given test type will be uesd for all chi square test./
+#' @param digits Integer indicating the number of decimal places to round to.
 #'
 #' @return A single-row data frame with the following columns:
 #' \itemize{
@@ -53,47 +54,93 @@
 #'
 #' @export
 make_chisq_test_table <- function(
-  chisq_object,
-  test_type = c("goodness-of-fit", "independence", "homogeneity")
+    chisq_object,
+    test_type = c("independence", "goodness-of-fit", "homogeneity"),
+    digits = 3
 ) {
-  test_type <- match.arg(test_type)
 
-  if (!inherits(chisq_object, "htest")) {
-    stop("Input must be a chisq.test() result")
+  # 1. Allow single htest or list of htest
+  if (inherits(chisq_object, "htest")) {
+    chisq_object <- list(chisq_object)
   }
 
-  chi_sq <- unname(chisq_object$statistic)
-  df <- unname(chisq_object$parameter)
-  p_value <- chisq_object$p.value
-  N <- sum(chisq_object$observed)
-
-  if (test_type == "goodness-of-fit") {
-    effect_type <- "Cohen_w"
-    effect_size <- sqrt(chi_sq / N)
-    cutoffs <- c(0.10, 0.30, 0.50)
-  } else {
-    effect_type <- "Cramers_V"
-    k <- min(dim(chisq_object$observed)) - 1
-    effect_size <- sqrt(chi_sq / (N * k))
-    cutoffs <- c(0.10, 0.30, 0.50)
+  # 2. Validate the input
+  if (!all(sapply(chisq_object, inherits, "htest"))) {
+    stop("All inputs must be a chisq.test() result object.")
   }
 
-  effect_label <- ifelse(
-    effect_size < cutoffs[1], "negligible",
-    ifelse(effect_size < cutoffs[2], "small",
-      ifelse(effect_size < cutoffs[3], "medium", "large")
+  # 3. Handle test_type argument logic
+  valid_types <- c("independence", "goodness-of-fit", "homogeneity")
+
+  # If user didn't change the default or provided nothing
+  if (missing(test_type) || identical(test_type, valid_types)) {
+    test_type <- "independence"
+  }
+
+  # 4. Recycle test_type if it's only length 1 to match number of tests
+  if (length(test_type) == 1) {
+    test_type <- rep(test_type, length(chisq_object))
+  }
+
+  # 5. Check and Standardize types (This replaces match.arg for vector support)
+  test_type <- sapply(test_type, function(x) {
+    if (x %in% valid_types) {
+      return(x)
+    } else {
+      warning(paste0("'", x, "' is not a standard type. Defaulting to 'independence'."))
+      return("independence")
+    }
+  })
+
+  # 6. Process each test
+  results <- lapply(seq_along(chisq_object), function(i) {
+    obj <- chisq_object[[i]]
+    type <- test_type[i]
+
+    chi_sq <- unname(obj$statistic)
+    df <- unname(obj$parameter)
+    p_val <- obj$p.value
+    N <- sum(obj$observed)
+
+    # Effect Size Logic
+    if (type == "goodness-of-fit") {
+      effect_type <- "Cohen_w"
+      effect_size <- sqrt(chi_sq / N)
+    } else {
+      effect_type <- "Cramers_V"
+      dims <- dim(obj$observed)
+      # k is min(rows, cols) - 1. For vectors, dims is NULL, so k=1.
+      k <- if (is.null(dims)) 1 else min(dims) - 1
+      k <- ifelse(k < 1, 1, k)
+      effect_size <- sqrt(chi_sq / (N * k))
+    }
+
+    # Interpretation (Cohen, 1988)
+    #
+    effect_label <- ifelse(effect_size < 0.10, "negligible",
+                           ifelse(effect_size < 0.30, "small",
+                                  ifelse(effect_size < 0.50, "medium", "large")))
+
+    # Format p-value
+    p_formatted <- ifelse(p_val < 10^-digits,
+                          paste0("< ", formatC(10^-digits, format = "f", digits = digits)),
+                          formatC(p_val, format = "f", digits = digits))
+
+    data.frame(
+      test = type,
+      chi_square = round(chi_sq, digits),
+      df = df,
+      p_value = p_formatted,
+      N = N,
+      effect_size = round(effect_size, digits),
+      effect_type = effect_type,
+      effect_interpretation = effect_label,
+      stringsAsFactors = FALSE
     )
-  )
+  })
 
-  data.frame(
-    test = test_type,
-    chi_square = chi_sq,
-    df = df,
-    p_value = p_value,
-    N = N,
-    effect_size = effect_size,
-    effect_type = effect_type,
-    effect_interpretation = effect_label,
-    stringsAsFactors = FALSE
-  )
+  # 7. Bind into one table
+  df_final <- do.call(rbind, results)
+  rownames(df_final) <- NULL
+  return(df_final)
 }

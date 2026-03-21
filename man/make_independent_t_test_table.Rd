@@ -30,7 +30,7 @@ A single-row data frame with the following columns:
 \description{
 This function performs an independent-samples t-test (Welch's t-test by default)
 between two groups defined by a binary grouping variable and returns a
-single-row, report-ready data frame. The output includes group names,
+single-row data frame. The output includes group names,
 sample sizes, mean difference, test statistics, p-value, and effect size
 (Cohen's d) with a qualitative interpretation.
 }

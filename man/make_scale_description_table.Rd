@@ -2,37 +2,31 @@
 % Please edit documentation in R/make_scale_description_table.R
 \name{make_scale_description_table}
 \alias{make_scale_description_table}
-\title{Create a Descriptive Statistics Table Row}
+\title{Create Descriptive Table for Multiple Scale Columns}
 \usage{
-make_scale_description_table(x, scale_name, type = NULL)
+make_scale_description_table(
+  x = NULL,
+  data = NULL,
+  columns = NULL,
+  scale_names = NULL,
+  type = NULL
+)
 }
 \arguments{
-\item{x}{A numeric vector representing total scores of a scale.}
+\item{x}{Optional numeric vector of total scores (single column, old-style).}
 
-\item{scale_name}{A single character string specifying the name of the scale.}
+\item{data}{Optional data frame containing one or more scale columns.}
 
-\item{type}{Optional character string. If NULL (default), descriptive
-statistics are computed using \code{psych::describe()}. If set to
-\code{"summary"}, statistics are computed using \code{base::summary()}.}
+\item{columns}{Optional character vector of column names in `data` (new-style).}
+
+\item{scale_names}{Optional character vector of names for each scale. Defaults to column names.}
+
+\item{type}{"summary" for base::summary(), NULL (default) uses psych::describe().}
 }
 \value{
-A single-row data frame with formatted descriptive statistics.
+A data frame with one row per column, containing descriptive statistics.
 }
 \description{
-Computes and formats descriptive statistics for a scale total score into a single-row data frame suitable for reporting.
-}
-\details{
-This function is intended for reporting descriptive statistics of
-total scale scores, for which descriptive statistics are computed internally
-using \code{psych::describe()} or \code{base::summary()}.
-}
-\examples{
-{
-  phq9_data <- as.data.frame(matrix(sample(0:3, 10 * 9, replace = TRUE), 10, 9))
-  colnames(phq9_data) <- paste0("Q", 1:9)
-  phq9_data$total <- rowSums(phq9_data)
-
-  make_scale_description_table(phq9_data$total, scale_name = "PHQ-9")
-}
-
+Computes descriptive statistics for one or more scale total columns.
+Accepts either a numeric vector (single column) or a data frame with column names.
 }

@@ -6,16 +6,19 @@
 \usage{
 make_chisq_test_table(
   chisq_object,
-  test_type = c("goodness-of-fit", "independence", "homogeneity")
+  test_type = c("independence", "goodness-of-fit", "homogeneity"),
+  digits = 3
 )
 }
 \arguments{
-\item{chisq_object}{An object of class \code{"htest"} produced by
+\item{chisq_object}{An object or list of objects of class \code{"htest"} produced by
 \code{stats::chisq.test()}.}
 
 \item{test_type}{Character string specifying the type of chi-square test.
 One of \code{"goodness-of-fit"}, \code{"independence"}, or
-\code{"homogeneity"}.}
+\code{"homogeneity"}.  for multiple object, if separate test_type are not provided than given test type will be uesd for all chi square test./}
+
+\item{digits}{Integer indicating the number of decimal places to round to.}
 }
 \value{
 A single-row data frame with the following columns:
@@ -32,7 +35,7 @@ A single-row data frame with the following columns:
 }
 \description{
 This function formats the result of a pre-computed \code{chisq.test()}
-into a single-row, report-ready data frame. It supports goodness-of-fit,
+into a single-row data frame. It supports goodness-of-fit,
 independence, and homogeneity chi-square tests and includes an appropriate
 effect size with a qualitative interpretation.
 }
