@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_dataframe_to_output.R
 \name{make_dataframe_to_output}
 \alias{make_dataframe_to_output}
-\title{Export a data frame to CSV, Word (.docx), or Excel (.xlsx) format.}
+\title{Export a data frame to CSV, Word (.docx),Excel (.xlsx) or pdf format.}
 \usage{
 make_dataframe_to_output(data, filename = NULL, format = "csv", path = NULL)
 }
@@ -14,7 +14,7 @@ make_dataframe_to_output(data, filename = NULL, format = "csv", path = NULL)
 If not provided, the name of the input object is used.}
 
 \item{format}{Character string specifying the output format. One of
-`"csv"`, `"word"`, or `"excel"`. Default is `"csv"`.}
+`"csv"`, `"word"`,`"excel"` or `"pdf"`. Default is `"csv"`.}
 
 \item{path}{Optional character string specifying the directory where the
 file should be saved. If `NULL` (default), the file is written to a
@@ -34,6 +34,10 @@ or a full file path.
 - CSV files are written using `utils::write.csv()`
 - Word files (`docx`) are created using the `officer` package
 - Excel (`xlsx`) files are created using the `openxlsx` package
+- PDF files are created using the 'flextable' package
+}
+\note{
+Exporting to PDF requires the 'webshot2' package to be installed.
 }
 \examples{
 \dontrun{

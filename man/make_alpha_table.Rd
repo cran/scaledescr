@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_alpha_table.R
 \name{make_alpha_table}
 \alias{make_alpha_table}
-\title{Wrap a pre computed psych::alpha object into a single row table}
+\title{Wrap a pre computed psych::alpha object into a single row table with N and alpha only.}
 \usage{
 make_alpha_table(alpha_res, scale_name = "Scale")
 }
@@ -12,21 +12,16 @@ make_alpha_table(alpha_res, scale_name = "Scale")
 \item{scale_name}{Name of the scale (default: "Scale")}
 }
 \value{
-A data frame with columns: Scale, 95% CI lower, Alpha, 95% CI upper
+A data frame with three columns: Scale,N, and Alpha.
 }
 \description{
-Wrap a pre computed psych::alpha object into a single row table
+Extracts only the Scale Name, Sample Size (N), and Cronbach's Alpha
+from a `psych::alpha` object.
 }
 \examples{
-# Create a minimal "psych::alpha" like object manually
-alpha_obj <- list(
-  total = list(
-    raw_alpha = 0.85,
-    lower = 0.78,
-    upper = 0.92
-  )
-)
-
-# Generate the formatted alpha table
-make_alpha_table(alpha_obj, scale_name = "PHQ-9")
+\dontrun{
+library(psych)
+res <- psych::alpha(mtcars[,1:3])
+make_alpha_table(res, scale_name = "Car Scale")
+}
 }

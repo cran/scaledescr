@@ -9,5 +9,5 @@ bibentry(
     comment = c(ORCID = "0009-0009-9351-8602")
   ),
   year    = "2026",
-  note    = "R package version 0.2.3",
+  note    = "R package version 0.2.4",
   )

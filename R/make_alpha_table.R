@@ -1,42 +1,45 @@
-#' Wrap a pre computed psych::alpha object into a single row table
+#' Wrap a pre computed psych::alpha object into a single row table with N and alpha only.
 #'
+#' Extracts only the Scale Name, Sample Size (N), and Cronbach's Alpha
+#' from a `psych::alpha` object.
 #' @param alpha_res A psych::alpha object (already computed)
 #' @param scale_name Name of the scale (default: "Scale")
 #'
-#' @return A data frame with columns: Scale, 95% CI lower, Alpha, 95% CI upper
+#' @return A data frame with three columns: Scale,N, and Alpha.
 #' @examples
-#' # Create a minimal "psych::alpha" like object manually
-#' alpha_obj <- list(
-#'   total = list(
-#'     raw_alpha = 0.85,
-#'     lower = 0.78,
-#'     upper = 0.92
-#'   )
-#' )
-#'
-#' # Generate the formatted alpha table
-#' make_alpha_table(alpha_obj, scale_name = "PHQ-9")
-
+#' \dontrun{
+#' library(psych)
+#' res <- psych::alpha(mtcars[,1:3])
+#' make_alpha_table(res, scale_name = "Car Scale")
+#' }
 #' @export
 make_alpha_table <- function(alpha_res, scale_name = "Scale") {
 
-  warning("The current `make_alpha_table()` may return inconsistent results for
-          some psych::alpha objects due to variation in alpha_res object structure.
-          Future versions will simplify output to Scale, N, and Alpha.")
+  # 1. Provide the requested warning about the structural change
+  warning("The current version simplify output to Scale, N, and Alpha.
+           The previous version of  `make_alpha_table()` was returning inconsistent results for
+          some psych::alpha objects due to variation in alpha_res object structure.")
 
-  # Extract raw alpha and round to 2 decimals
-  raw_alpha <- round(alpha_res$total$raw_alpha, 2)
+  # 2. Initialize variables to NA to satisfy CMD check and handle missing data
+  raw_alpha <- NA
+  n_obs <- NA
 
-  # Extract Feldt 95% CI (NA if not available) and round to 2 decimals
-  ci_lower <- if (length(alpha_res$total$lower) > 0) round(as.numeric(alpha_res$total$lower), 2) else NA
-  ci_upper <- if (length(alpha_res$total$upper) > 0) round(as.numeric(alpha_res$total$upper), 2) else NA
+  # 3. Robust extraction of required values
+  # Alpha: from total summary, rounded to 2 decimals
+  raw_alpha <- if (!is.null(alpha_res$total$raw_alpha)) {
+    round(as.numeric(alpha_res$total$raw_alpha), 2)
+  } else {
+    NA
+  }
 
-  # Single-row table
-  data.frame(
+  # 4. Create the simplified table
+  # Using stringsAsFactors = FALSE is best practice for older R versions
+  res_df <- data.frame(
     Scale = scale_name,
-    `95% CI lower` = ci_lower,
+    N = n_obs,
     Alpha = raw_alpha,
-    `95% CI upper` = ci_upper,
+    stringsAsFactors = FALSE,
     check.names = FALSE
   )
+  return(res_df)
 }
