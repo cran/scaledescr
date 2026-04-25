@@ -1,7 +1,7 @@
-954344fd841c6b852ca32cb2df975495 *DESCRIPTION
+eb2b2811122dea63b7b1e8c6bfe4a198 *DESCRIPTION
 26385cfbd0ff98dd666be02973ceed4c *LICENSE
-c924c86cd11bfad33dd5a1dab6789ebb *NAMESPACE
-2535d26c448fb6f9a14e2625570b7151 *NEWS.md
+665093bab6570d8c634d946d60d4ee02 *NAMESPACE
+18f8891e38d03c3f4c2f91d163718000 *NEWS.md
 62e439fc560b7a8c3e5d20c5fb45075f *R/compute_ICC.R
 b6cf45c331ee2f6d14c151da61d92fe9 *R/make_EFA_factorability_table.R
 0e392cf4becd9f76c4e5d1fe9e2f8071 *R/make_alpha_table.R
@@ -13,6 +13,7 @@ db2d4d664cf45f4c5a25b4727ba0bf30 *R/make_correlation_table.R
 131d0140f334bf2a3c7f0909648c3cb5 *R/make_demographic_table.R
 6109e05d1d5ca57a6ae13ef1805ac78b *R/make_demographic_table_to_output.R
 1f395549110e029b9dbf69d43fc8fdda *R/make_independent_t_test_table.R
+5d55c9c46243bdaf468293cc65c3b01c *R/make_lavaan_analysis_tables.R
 788c0ddef144bb18e4b572854764d15f *R/make_normality_table.R
 e338f0dd4885d81c60063f59614d7908 *R/make_one_sample_t_test_table.R
 54f29580ac3910efb2abc6b3d46bd3d5 *R/make_paired_t_test_table.R
@@ -20,7 +21,7 @@ e338f0dd4885d81c60063f59614d7908 *R/make_one_sample_t_test_table.R
 343608a233ed747b9da050e4bdd3e6da *R/make_scale_description_table.R
 a914970fb0e2e50fadd3e5b20bdfaecd *R/make_scale_total.R
 e29b6ad433db72e858e3c0d78674ff93 *R/scaledescr.R
-b02cfa5323a6f47c8d0a7e0fae0210a8 *inst/CITATION
+07069e7e268fea0030c5bd23c6e39de2 *inst/CITATION
 25861a31a38a19d1b90f62a894998ea7 *man/compute_ICC.Rd
 0eb5ada7070b5de4e6cf79a7629d43fb *man/make_EFA_factorability_table.Rd
 563ba0eaff566700dd904f1c495cca2e *man/make_alpha_table.Rd
@@ -32,6 +33,7 @@ f9438e702afd998019d9d9d56fef40f0 *man/make_dataframe_to_output.Rd
 ef9e2218432b9b674c155feeb92597d1 *man/make_demographic_table.Rd
 871de2d2aa0854b98e534f1488b96ccc *man/make_demographic_table_to_output.Rd
 ab8504b648ee4c2e9cbb5aebd63fc1e7 *man/make_independent_t_test_table.Rd
+a544a8472355024de80279816c8d824f *man/make_lavaan_analysis_tables.Rd
 9cd065dad3e652d6497b10bd16c46804 *man/make_normality_table.Rd
 6811b7374dbe0b0dff9af018499c89b3 *man/make_one_sample_t_test_table.Rd
 b194ac0469740e9aa7df8ecfc50c254f *man/make_paired_t_test_table.Rd
