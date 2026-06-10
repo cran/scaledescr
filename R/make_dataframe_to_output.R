@@ -181,7 +181,7 @@ make_dataframe_to_output <- function( data,
     if (is_citation_df) {
       warning(
         "PDF export for citation tables may render poorly due to long text fields.
-      Consider using format = 'docx' and converting to PDF for better results.",
+      Consider using format = 'word' and converting to PDF for better results.",
         call. = FALSE
       )
     }

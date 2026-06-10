@@ -1,3 +1,17 @@
+# scaledescr 0.2.7
+
+- number of function-19
+
+## Improvements
+
+- instruction corrected for make_citation_to_output.The warning message read as format= "word" now.
+- citation corrected.
+- description and citation corrected.
+
+## New Functions
+
+- `make_lavaan_mediation_tables()` — Fits a lavaan mediation model with one or more mediators and optionally allows covariances between IVs, mediators, and DVs. Returns direct effects, indirect effects, total effects, correlations, and fit indices.
+
 # scaledescr 0.2.6
 
 - number of function-18
