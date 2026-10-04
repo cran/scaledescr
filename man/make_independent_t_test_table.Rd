@@ -2,9 +2,14 @@
 % Please edit documentation in R/make_independent_t_test_table.R
 \name{make_independent_t_test_table}
 \alias{make_independent_t_test_table}
-\title{Create a one-row summary table for an independent-samples t-test}
+\title{Create a one-row summary table for an independent-samples test}
 \usage{
-make_independent_t_test_table(data, outcome, group)
+make_independent_t_test_table(
+  data,
+  outcome,
+  group,
+  test_type = c("welch", "student", "mann-whitney")
+)
 }
 \arguments{
 \item{data}{A data frame containing the outcome and grouping variables.}
@@ -12,6 +17,9 @@ make_independent_t_test_table(data, outcome, group)
 \item{outcome}{Character string specifying the numeric outcome variable.}
 
 \item{group}{Character string specifying the grouping variable. Must have exactly two levels.}
+
+\item{test_type}{Character string specifying the test method: \code{"welch"} (default),
+\code{"student"}, or \code{"mann-whitney"}.}
 }
 \value{
 A single-row data frame with the following columns:
@@ -19,8 +27,8 @@ A single-row data frame with the following columns:
   \item \code{test}: Name of the statistical test
   \item \code{group1}, \code{group2}: Group labels
   \item \code{mean_diff}: Mean difference between groups (group1 - group2)
-  \item \code{t_value}: t statistic
-  \item \code{df}: Degrees of freedom
+  \item \code{t_value}: Test statistic (t-value or W-statistic for Mann-Whitney)
+  \item \code{df}: Degrees of freedom (returns \code{NA} for Mann-Whitney)
   \item \code{p_value}: p-value
   \item \code{n_group1}, \code{n_group2}: Sample sizes per group
   \item \code{cohens_d}: Cohen's d effect size
@@ -28,15 +36,15 @@ A single-row data frame with the following columns:
 }
 }
 \description{
-This function performs an independent-samples t-test (Welch's t-test by default)
-between two groups defined by a binary grouping variable and returns a
-single-row data frame. The output includes group names,
+This function performs an independent-samples test (Welch's t-test, Student's t-test,
+or Mann-Whitney U test) between two groups defined by a binary grouping variable
+and returns a single-row data frame. The output includes group names,
 sample sizes, mean difference, test statistics, p-value, and effect size
 (Cohen's d) with a qualitative interpretation.
 }
 \details{
 The function is intended for streamlined reporting and does not introduce
-new statistical methods. All computations rely on \code{stats::t.test()}.
+new statistical methods. Computations rely on \code{stats::t.test()} or \code{stats::wilcox.test()}.
 
 
 Welch’s t-test is used by default, which does not assume equal variances.
@@ -55,9 +63,11 @@ data_t <- data.frame(
   )
 )
 
-make_independent_t_test_table(
-  data = data_t,
-  outcome = "score",
-  group = "group"
-)
+# Legacy call (defaults to welch)
+make_independent_t_test_table(data = data_t, outcome = "score", group = "group")
+
+# New explicitly defined calls
+make_independent_t_test_table(data_t, "score", "group", test_type = "student")
+make_independent_t_test_table(data_t, "score", "group", test_type = "mann-whitney")
+
 }

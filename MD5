@@ -1,8 +1,9 @@
-101ce75195f2498501dd1e861ae4e9a9 *DESCRIPTION
+595e984d205580b26b5e10ecf7aa2916 *DESCRIPTION
 26385cfbd0ff98dd666be02973ceed4c *LICENSE
-e72be1eb79e1847cabb28e920b1f40ff *NAMESPACE
-ee049fa1928e260fd72fdf886e315bed *NEWS.md
+32bb8d2fc3ceff22c05f4926f49bbd21 *NAMESPACE
+af7a0e25cc36b97017bf0cf1875d946b *NEWS.md
 62e439fc560b7a8c3e5d20c5fb45075f *R/compute_ICC.R
+89bad9d116bcb45abc4aeed2b1f0f815 *R/data.R
 b6cf45c331ee2f6d14c151da61d92fe9 *R/make_EFA_factorability_table.R
 0e392cf4becd9f76c4e5d1fe9e2f8071 *R/make_alpha_table.R
 ac26a816f1238493a5821c8cb2eba1cc *R/make_alphanumeric_conversion.R
@@ -12,7 +13,7 @@ db2d4d664cf45f4c5a25b4727ba0bf30 *R/make_correlation_table.R
 91352bb18d4cee5526fce97841f7096d *R/make_dataframe_to_output.R
 131d0140f334bf2a3c7f0909648c3cb5 *R/make_demographic_table.R
 6109e05d1d5ca57a6ae13ef1805ac78b *R/make_demographic_table_to_output.R
-1f395549110e029b9dbf69d43fc8fdda *R/make_independent_t_test_table.R
+c3be4cf2847dd0a41708208063a9e896 *R/make_independent_t_test_table.R
 5d55c9c46243bdaf468293cc65c3b01c *R/make_lavaan_analysis_tables.R
 fc0e220faf23feca0f30756d281adf16 *R/make_lavaan_mediation_tables.R
 788c0ddef144bb18e4b572854764d15f *R/make_normality_table.R
@@ -20,10 +21,14 @@ e338f0dd4885d81c60063f59614d7908 *R/make_one_sample_t_test_table.R
 54f29580ac3910efb2abc6b3d46bd3d5 *R/make_paired_t_test_table.R
 8632178dbeb336e76bb69d20e5f81a7f *R/make_reverse_score.R
 343608a233ed747b9da050e4bdd3e6da *R/make_scale_description_table.R
-a914970fb0e2e50fadd3e5b20bdfaecd *R/make_scale_total.R
+a33e3f16951374014b00d951b447c4bd *R/make_scale_total.R
+279765c7a0e04ee407b0e2a55f24031d *R/merge_counterbalanced_columns.R
 e29b6ad433db72e858e3c0d78674ff93 *R/scaledescr.R
-28c3ae1f211384d8cd4e4e70323ed0ee *inst/CITATION
+b6527e4ad563ede403d2c4974f6d5133 *R/scaledescr_remove_column.R
+4b9876e90c05592f3ca06ed1e32cd9e0 *data/counterbalance.rda
+51d90f433a9cc0488fd8c1096dca2033 *inst/CITATION
 25861a31a38a19d1b90f62a894998ea7 *man/compute_ICC.Rd
+dc4372d64c7fa2f58b36f7cd15f7759d *man/counterbalance.Rd
 0eb5ada7070b5de4e6cf79a7629d43fb *man/make_EFA_factorability_table.Rd
 563ba0eaff566700dd904f1c495cca2e *man/make_alpha_table.Rd
 b4203c77b8be884cfa3df10171a6cb04 *man/make_alphanumeric_conversion.Rd
@@ -33,7 +38,7 @@ e8b64bc637ff79b8bb23dc4c4f123977 *man/make_citation_to_output.Rd
 f9438e702afd998019d9d9d56fef40f0 *man/make_dataframe_to_output.Rd
 ef9e2218432b9b674c155feeb92597d1 *man/make_demographic_table.Rd
 871de2d2aa0854b98e534f1488b96ccc *man/make_demographic_table_to_output.Rd
-ab8504b648ee4c2e9cbb5aebd63fc1e7 *man/make_independent_t_test_table.Rd
+72a8b8ddc4cd630b610d7ecee045281f *man/make_independent_t_test_table.Rd
 a544a8472355024de80279816c8d824f *man/make_lavaan_analysis_tables.Rd
 19502418504560c93ed641588c82d9a8 *man/make_lavaan_mediation_tables.Rd
 9cd065dad3e652d6497b10bd16c46804 *man/make_normality_table.Rd
@@ -41,5 +46,7 @@ a544a8472355024de80279816c8d824f *man/make_lavaan_analysis_tables.Rd
 b194ac0469740e9aa7df8ecfc50c254f *man/make_paired_t_test_table.Rd
 47c1a8db383e321914da980569126d5b *man/make_reverse_score.Rd
 83386070edeee02b5419defe4e29b02d *man/make_scale_description_table.Rd
-f9f1ce7859d3b24a01f25a112e409b29 *man/make_scale_total.Rd
+7713fe26cc52a6ea3c166fc0b6229473 *man/make_scale_total.Rd
+e6c13fe5362ea43bf9ea5efc43622c91 *man/merge_counterbalanced_columns.Rd
 57ca2e95e288acfdd97c2c2730e3c3bf *man/scaledescr.Rd
+a91958386885eddf25e3bd4b5ed7c886 *man/scaledescr_remove_column.Rd

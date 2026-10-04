@@ -1,16 +1,34 @@
+citHeader("To cite the scaledescr package in publications, please use:")
 
+c(
+# 1. The R Package itself
 bibentry(
   header = "To cite the scaledescr package in publications:",
   bibtype     = "Manual",
   title       = "Descriptive, Reliability, and Inferential Tables for Psychometric Scales and Demographic Data",
   author      = "Darshankumar Dharaiya",
   year        = "2026",
-  note        = "R package version 0.2.7",
+  note        = "R package version 0.2.8",
   doi         = "10.32614/CRAN.package.scaledescr",
   url         = "https://CRAN.R-project.org/package=scaledescr",
   textVersion = paste(
     "Dharaiya, D. (2026). Descriptive, Reliability, and Inferential Tables for",
-    "Psychometric Scales and Demographic Data. R package version 0.2.7.",
+    "Psychometric Scales and Demographic Data. R package version 0.2.8.",
     "DOI: 10.32614/CRAN.package.scaledescr"
   )
+),
+# 2. The Journal Article
+bibentry(
+    bibtype     = "Article",
+    title       = "Scaledescr: A Beginner-friendly R Package for Streamlined Data Analysis and Reporting in Postgraduate Medical Research",
+    author      = person("Darshankumar", "Dharaiya"),
+    journal     = "Journal of Postgraduate Medicine, Education and Research",
+    year        = "2026",
+    textVersion = paste(
+      "Dharaiya, D. (2026). Scaledescr: A Beginner-friendly R Package for Streamlined Data Analysis",
+      "and Reporting in Postgraduate Medical Research. Journal of Postgraduate Medicine, Education and Research.",
+      "Ahead of Print"
+    )
+  )
 )
+

@@ -22,3 +22,29 @@ Computes the total score for a psychometric scale by summing specified
 numeric variables. The resulting total score is appended as a new column
 to the input data frame. Missing values are handled using `na.rm = TRUE`.
 }
+\examples{
+# Example using the standard 'bfi' (Big Five Inventory) dataset from psych
+if (requireNamespace("psych", quietly = TRUE)) {
+  data(bfi, package = "psych")
+
+  # Take a small subset for demonstration
+  sample_bfi <- head(bfi, 10)
+
+  # Compute the Agreeableness total score (items A1 to A5)
+  sample_bfi <- make_scale_total(
+    data = sample_bfi,
+    vars = paste0("A", 1:5),
+    new_var = "Agreeableness_Total"
+  )
+
+  # Compute the Extraversion total score (items E1 to E5)
+  sample_bfi <- make_scale_total(
+    data = sample_bfi,
+    vars = paste0("E", 1:5),
+    new_var = "Extraversion_Total"
+  )
+
+  # View the newly appended score columns alongside the items
+  sample_bfi[, c("A1", "Agreeableness_Total", "E1", "Extraversion_Total")]
+}
+}

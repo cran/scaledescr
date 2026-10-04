@@ -1,3 +1,18 @@
+# scaledescr 0.2.8
+
+- number of function-21
+
+## Improvements
+
+-  example added for `make_scale_total()` function.
+-  Citation updated to reflect the published article on development of scaledescr package.
+-  Data set added to demonstrate use of `merge_counterbalanced_columns()` function. 
+
+## New Functions
+
+- `scaledescr_remove_column()` - Removes one or more specified columns from a data frame by name.The function accepts either a single column name or a character vector of multiple column names. Missing columns are reported without crashing the script.
+- `merge_counterbalanced_columns()` - Merges mutually exclusive item pairs resulting from counterbalanced survey administrations, handling blank strings, checking for missing columns, and flagging responses containing data in both versions.
+
 # scaledescr 0.2.7
 
 - number of function-19
