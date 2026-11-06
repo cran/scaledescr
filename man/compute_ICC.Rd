@@ -43,6 +43,69 @@ Users are responsible for:
   \item Handling missing data appropriately.
 }
 }
+\note{
+For test-retest, cross-language, or rater-agreement designs across multi-item
+scales, do \strong{not} pass all items simultaneously (e.g., all English and
+Gujarati items together). Doing so treats every individual item as an
+interchangeable rater/judge, pooling item-level variance with rater variance.
+
+Instead:
+\itemize{
+  \item For \strong{item-level equivalence}: compute ICC separately for each
+        matched pair (2 judges per call; e.g., \code{phq_e_1} vs. \code{phq_g_1}).
+  \item For \strong{scale-level equivalence}: compute the composite or total scores
+        first, then pass the two total score columns (2 judges; e.g., \code{phq_total_e}
+        vs. \code{phq_total_g}).
+}
+}
+\section{Warning}{
+
+\strong{Do not pass all items of a multi-item scale simultaneously for test-retest or cross-language equivalence.}
+Passing 18 columns (e.g., 9 English and 9 Gujarati items) treats every item as an interchangeable rater (\code{Judges = 18}).
+This confounds item-specific variance with language differences, yielding misleading results.
+For pairwise equivalence, evaluate items individually (\code{Judges = 2}) or sum/average them into composite scores first.
+}
+
+\examples{
+data(counterbalance)
+
+# Step 1: Prepare merged columns across counterbalanced orders
+df <- merge_counterbalanced_columns(
+  data        = counterbalance,
+  col_1       = paste0("phq_e_1_", 1:9),
+  col_2       = paste0("phq_e_2_", 1:9),
+  new_columns = paste0("phq_e_", 1:9)
+)
+
+df <- merge_counterbalanced_columns(
+  data        = df,
+  col_1       = paste0("phq_g_1_", 1:9),
+  col_2       = paste0("phq_g_2_", 1:9),
+  new_columns = paste0("phq_g_", 1:9)
+)
+
+# -------------------------------------------------------------
+# CORRECT USE 1: Item-level cross-language equivalence (Judges = 2)
+# -------------------------------------------------------------
+compute_ICC(df, items = c("phq_e_1", "phq_g_1"))
+
+# -------------------------------------------------------------
+# CORRECT USE 2: Scale-level cross-language equivalence (Judges = 2)
+# -------------------------------------------------------------
+df$phq_total_e <- rowSums(df[, paste0("phq_e_", 1:9)])
+df$phq_total_g <- rowSums(df[, paste0("phq_g_", 1:9)])
+compute_ICC(df, items = c("phq_total_e", "phq_total_g"))
+
+# -------------------------------------------------------------
+# INCORRECT USE: What NOT to do for cross-language equivalence using `compute_ICC()` function!
+# -------------------------------------------------------------
+# Passing all 18 columns simultaneously treats each question as an
+# interchangeable judge (Judges = 18), conflating internal consistency
+# with cross-language agreement and producing misleading ICC estimates:
+\dontrun{
+compute_ICC(df, items = c(paste0("phq_e_", 1:9), paste0("phq_g_", 1:9)))
+}
+}
 \seealso{
 \code{\link[psych]{ICC}}
 }

@@ -1,3 +1,17 @@
+# scaledescr 0.2.9
+
+- number of function-22
+
+## Improvements
+-  Package description updated. 
+-  example and  WARNING  added for correct use of `compute_ICC()` function and how not to use it.
+-  Citation updated to reflect the published article on development of scaledescr package.
+-  Earlier NEWS documentation corrected for 0.2.3 version
+
+## New Functions
+
+- `make_item_total_correlation_table()` extracts a specified subset of items from a dataset, executes an item-level psychometric reliability analysis using the `performance` package, and returns a clean, publication-ready data frame. It also prints overall scale reliability metrics to the console.
+
 # scaledescr 0.2.8
 
 - number of function-21
@@ -81,9 +95,9 @@
 ## New Functions
 
 - `make_alphanumeric_conversion()` - Converts specified columns between alphabetical (text) and numeric values. Can either overwrite existing columns or create new ones.\
-- `make_scale_total()` - Converts specified columns between alphabetical (text) and numeric values.Can either overwrite existing columns or create new ones.\
+- `make_scale_total()` - Computes the total score for a psychometric scale by summing specified numeric variables. The resulting total score is appended as a new column to the input data frame. Missing values are handled using `na.rm = TRUE`.\
 - `make_reverse_score()` - Create Reverse Scores as New Columns.\
-- `compute_ICC()` - Create Reverse Scores as New Columns.\
+- `compute_ICC()` -  Compute Intraclass Correlation Coefficient (ICC) for Selected Columns.\
 - `make_one_sample_t_test_table()` - create a single row table of one sample t test result from htest object calculated using t.test(). it can accept list of htest object at once as well.
 
 # scaledescr 0.2.2

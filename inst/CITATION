@@ -8,7 +8,7 @@ bibentry(
   title       = "Descriptive, Reliability, and Inferential Tables for Psychometric Scales and Demographic Data",
   author      = "Darshankumar Dharaiya",
   year        = "2026",
-  note        = "R package version 0.2.8",
+  note        = "R package version 0.2.9",
   doi         = "10.32614/CRAN.package.scaledescr",
   url         = "https://CRAN.R-project.org/package=scaledescr",
   textVersion = paste(

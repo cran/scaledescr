@@ -11,6 +11,7 @@ export(make_dataframe_to_output)
 export(make_demographic_table)
 export(make_demographic_table_to_output)
 export(make_independent_t_test_table)
+export(make_item_total_correlation_table)
 export(make_lavaan_analysis_tables)
 export(make_lavaan_mediation_tables)
 export(make_normality_table)
@@ -21,50 +22,78 @@ export(make_scale_description_table)
 export(make_scale_total)
 export(merge_counterbalanced_columns)
 export(scaledescr_remove_column)
-importFrom(dplyr,"%>%")
-importFrom(dplyr,all_of)
-importFrom(dplyr,select)
-importFrom(flextable,autofit)
-importFrom(flextable,flextable)
-importFrom(flextable,font)
-importFrom(flextable,gen_grob)
-importFrom(grDevices,dev.off)
-importFrom(grDevices,pdf)
-importFrom(grid,grid.draw)
-importFrom(grid,popViewport)
-importFrom(grid,pushViewport)
-importFrom(grid,viewport)
-importFrom(gtsummary,all_categorical)
-importFrom(gtsummary,all_continuous)
-importFrom(gtsummary,tbl_summary)
-importFrom(lavaan,fitMeasures)
-importFrom(lavaan,lavInspect)
-importFrom(lavaan,parameterEstimates)
-importFrom(lavaan,sem)
-importFrom(lavaan,standardizedSolution)
-importFrom(officer,body_add_par)
-importFrom(officer,body_add_table)
-importFrom(officer,read_docx)
+importFrom(dplyr,
+  "%>%",
+  all_of,
+  select
+)
+importFrom(flextable,
+  autofit,
+  flextable,
+  font,
+  gen_grob
+)
+importFrom(grDevices,
+  dev.off,
+  pdf
+)
+importFrom(grid,
+  grid.draw,
+  popViewport,
+  pushViewport,
+  viewport
+)
+importFrom(gtsummary,
+  all_categorical,
+  all_continuous,
+  tbl_summary
+)
+importFrom(lavaan,
+  fitMeasures,
+  lavInspect,
+  parameterEstimates,
+  sem,
+  standardizedSolution
+)
+importFrom(officer,
+  body_add_par,
+  body_add_table,
+  read_docx
+)
 importFrom(openxlsx,write.xlsx)
-importFrom(psych,ICC)
-importFrom(psych,KMO)
-importFrom(psych,cortest.bartlett)
-importFrom(purrr,map_chr)
-importFrom(purrr,map_lgl)
-importFrom(rlang,as_name)
-importFrom(rlang,enquos)
-importFrom(stats,cor.test)
-importFrom(stats,ks.test)
-importFrom(stats,na.omit)
-importFrom(stats,sd)
-importFrom(stats,shapiro.test)
-importFrom(stats,t.test)
-importFrom(stats,wilcox.test)
-importFrom(stringr,str_to_title)
-importFrom(stringr,str_trim)
-importFrom(utils,capture.output)
-importFrom(utils,citation)
-importFrom(utils,combn)
-importFrom(utils,packageVersion)
-importFrom(utils,sessionInfo)
-importFrom(utils,write.csv)
+importFrom(performance,item_reliability)
+importFrom(psych,
+  ICC,
+  KMO,
+  cortest.bartlett
+)
+importFrom(purrr,
+  map_chr,
+  map_lgl
+)
+importFrom(rlang,
+  as_name,
+  enquos
+)
+importFrom(stats,
+  cor,
+  cor.test,
+  ks.test,
+  na.omit,
+  sd,
+  shapiro.test,
+  t.test,
+  wilcox.test
+)
+importFrom(stringr,
+  str_to_title,
+  str_trim
+)
+importFrom(utils,
+  capture.output,
+  citation,
+  combn,
+  packageVersion,
+  sessionInfo,
+  write.csv
+)

@@ -47,8 +47,8 @@ overlap errors, and prepares the dataset for downstream psychometric evaluation
 # PHQ-9 administered in English and Gujarati, each across two orders
 
 # Merge English items across orders -> phq_e_1 ... phq_e_9
-df <- merge_counterbalanced_columns(
-  data        = df,
+counterbalance <- merge_counterbalanced_columns(
+  data        = counterbalance,
   col_1       = paste0("phq_e_1_", 1:9),
   col_2       = paste0("phq_e_2_", 1:9),
   new_columns = paste0("phq_e_", 1:9),
@@ -56,14 +56,14 @@ df <- merge_counterbalanced_columns(
 )
 
 # Merge Gujarati items across orders -> phq_g_1 ... phq_g_9
-df <- merge_counterbalanced_columns(
-  data        = df,
+counterbalance <- merge_counterbalanced_columns(
+  data        = counterbalance,
   col_1       = paste0("phq_g_1_", 1:9),
   col_2       = paste0("phq_g_2_", 1:9),
   new_columns = paste0("phq_g_", 1:9)
 )
 
 # Inspect the merged items
-head(df[c("age", "gender", paste0("phq_g_", 1:9))])
+head(counterbalance[c("age", "gender", paste0("phq_g_", 1:9))])
 }
 }
